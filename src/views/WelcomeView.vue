@@ -6,7 +6,7 @@
   <div style="width: 100vw;height: 100vh;overflow: hidden;display: flex">
     <div style="flex: 1;background-color: black">
       <el-image style="width: 100%;height: 100%;" fit="cover"
-          src="src/0494e945880511ebb6edd017c2d2eca2.png"/>
+          src="src/background.png"/>
     </div>
     <div class="welcome-title">
       <div style="font-size: 40px;font-weight: bold">欢迎来到vue学习平台</div>
