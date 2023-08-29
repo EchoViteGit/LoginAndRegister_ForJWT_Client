@@ -14,7 +14,7 @@
       <div style="margin-top: 5px">使用技术栈：Vue3+SpringBoot3+MySQL8.0.33+Redis7.0.12+RabbitMQ</div>
     </div>
     <div class="right-card">
-
+      <router-view/>
     </div>
   </div>
 </template>
