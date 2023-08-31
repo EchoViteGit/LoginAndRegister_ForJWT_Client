@@ -27,7 +27,7 @@ const validateUsername = (rule,value,callback) =>{
   }
 }
 
-const validatePassword = (ule,value,callback)=>{
+const validatePasswordRepeat = (ule,value,callback)=>{
   if(value === '')
     callback(new Error('请再次输入密码'))
   else if(value!==form.password)
@@ -35,17 +35,28 @@ const validatePassword = (ule,value,callback)=>{
   else
     callback()
 }
+
+const validatePassword = (ule,value,callback)=>{
+  if(value === '')
+    callback(new Error('请输入密码'))
+  else if(!/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z\\W]{6,20}$/.test(form.password)){
+    callback(new Error('密码必须包含字母和数字'))
+  }else {
+    callback()
+  }
+}
+
 const rule = {
   username:[
     {validator:validateUsername,trigger:['blur','change']},
     {min: 4,max: 10,message: '用户名的长度再4-10个字符'}
   ],
   password:[
-    {required: true,message: '请输入密码',trigger:['blur','change']},
+    {validator:validatePassword,trigger:['blur','change']},
     {min:6,max:20,message: '密码长度在6-20字符之间',trigger:['blur','change']}
   ],
   password_repeat:[
-    {validator:validatePassword,trigger:['blur','change']},
+    {validator:validatePasswordRepeat,trigger:['blur','change']},
   ],
   email:[
     {required: true,message: '请输入邮件地址',trigger:['blur']},
@@ -62,7 +73,12 @@ function askCode(){
   if(isEmailValid){
     get(`/api/auth/ask-code?email=${form.email}&type=register`,()=>{
       ElMessage.success(`验证码已发送至:${form.email},请注意查收！`)
-      setInterval(()=>coldTime.value--,1000)
+      const interval = setInterval(() => {
+            if (coldTime.value-- === 1) {
+              clearInterval(interval);
+            }
+          }, 1000
+      );
     },(message)=>{
       ElMessage.warning(message)
       coldTime.value = 0
@@ -71,8 +87,9 @@ function askCode(){
     ElMessage.warning('请输入正确的电子邮件地址')
   }
 }
+
 const isEmailValid = computed(()=>{
-  return /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(form.email)
+  return /^[\w.-]+@[\w.-]+\.\w+$/.test(form.email)
 })
 
 function register(){
