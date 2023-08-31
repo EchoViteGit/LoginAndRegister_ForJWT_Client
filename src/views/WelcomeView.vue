@@ -14,7 +14,11 @@
       <div style="margin-top: 5px">使用技术栈：Vue3+SpringBoot3+MySQL8.0.33+Redis7.0.12+RabbitMQ</div>
     </div>
     <div class="right-card">
-      <router-view/>
+      <router-view v-slot="{Component}">
+        <transition name="el-fade-in-linear" mode="out-in">
+          <component :is="Component"/>
+        </transition>
+      </router-view>
     </div>
   </div>
 </template>
