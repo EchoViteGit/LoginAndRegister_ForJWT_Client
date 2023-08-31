@@ -114,7 +114,7 @@ function deRest(){
 
 <template>
   <div style="text-align: center">
-    <div style="margin-top: 40px">
+    <div style="margin-top: 80px">
       <el-steps align-center finish-status="success" :active="active">
         <el-step title="验证电子邮件"/>
         <el-step title="重新设置密码"/>
@@ -182,6 +182,9 @@ function deRest(){
       <div style="margin-top: 80px">
         <el-button style="width: 270px" type="danger" @click="deRest" plain>立即重置密码</el-button>
       </div>
+    </div>
+    <div style="margin-top: 100px">
+      <el-button style="width: 270px" type="warning" @click="router.push('/')" plain>返回登录页</el-button>
     </div>
   </div>
 </template>
