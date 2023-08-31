@@ -88,9 +88,7 @@ function askCode(){
   }
 }
 
-const isEmailValid = computed(()=>{
-  return /^[\w.-]+@[\w.-]+\.\w+$/.test(form.email)
-})
+const isEmailValid = computed(()=>{/^[\w.-]+@[\w.-]+\.\w+$/.test(form.email)})
 
 function register(){
   formRef.value.validate((valid)=>{
