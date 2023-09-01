@@ -95,7 +95,11 @@ function confirmReset(){
       post("/api/auth/reset-confirm",{
         email:form.email,
         code: form.code
-      },()=>active.value++)
+      },()=>active.value++, (message)=>{
+        ElMessage.warning(message)
+        if (message === '没有与此邮箱绑定的账号！')
+          router.push('/')
+      })
     }
   })
 }
